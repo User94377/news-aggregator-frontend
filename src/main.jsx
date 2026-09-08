@@ -1,0 +1,46 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import axios from 'axios'
+
+axios.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  
+  return config;
+});
+
+axios.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && (error.response.status === 403 || error.response.status === 401)) {
+      console.log("Токен истек, выходим...");
+      
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      
+      window.location.reload();
+    }
+    return Promise.reject(error);
+  }
+);
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+
+
