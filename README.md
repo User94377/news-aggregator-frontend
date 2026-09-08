@@ -4,9 +4,9 @@ News Aggregator UI (React + TypeScript)
 
 Стек технологий
 
-Фреймворк: React 19, TypeScript, Vite
+Фреймворк: React, TypeScript, Vite
 Стилизация: Tailwind CSS, Tailwind Typography plugin
-HTTP-клиент: Axios (с автоматической подстановкой Bearer JWT через interceptors)
+HTTP-клиент: Axios
 Анимации: CSS Keyframe animations
 Функционал интерфейса
 
